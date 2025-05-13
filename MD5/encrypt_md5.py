@@ -152,6 +152,7 @@ class MD5:
         
         return o
 
+# <--- Usage Example --->
 if __name__ == "__main__":
     book_id = 998091
     md5 = MD5(book_id=book_id)
