@@ -38,7 +38,6 @@ class BookInfoJSON:
         with open("cache/bookinfo.json", "wb") as f:
             f.write(the_book_info_json.content)
 
-
     def make_query(self, target_book_name: str) ->dict[str, str]:
         """constrcut a dict query for search url construction
 
@@ -116,7 +115,7 @@ class BookInfoJSON:
 
 # <--- Usage Example --->
 if __name__ == "__main__":
-    info = BookInfoJSON("https://weread.qq.com/", "百年孤独")
+    info = BookInfoJSON("https://weread.qq.com", "百年孤独")
     info.get_book_info_json()
     all_book_info = info.parse_bookid()
 
