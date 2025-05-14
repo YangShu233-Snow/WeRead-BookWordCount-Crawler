@@ -23,9 +23,11 @@ class BookInfoJSON:
         # 初始化Cookie
         if cookies != "":
             headers.update({'Cookie': cookies})
+            self.headers = headers
         else:
             cookies = self.initialize_get_cookies(base_url=self.base_url, headers=self.headers)
             headers.update({'Cookie': cookies})
+            self.headers = headers
     
     def get_book_info_json(self):
         query = self.make_query(self.target_book_name)
