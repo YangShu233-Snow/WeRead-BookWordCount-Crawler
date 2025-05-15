@@ -2,19 +2,19 @@ from Encrypt.encrypt_md5 import MD5
 from API import bookid
 from API import reader
 from ReadFile import read
+from SaveFile import save
 import random
 from time import sleep
 
 def main():
     base_url = "https://weread.qq.com"
     source = './Input/'
-    units = ["百万", "十万", "万", "千", "百", ""]
     all_target_books = ["百年孤独"]
     all_result_books_word_count = {}
 
     # 加载目标书籍配置，获取所有书名
-    file_reader = read.FileReader(source)
-    all_target_books = file_reader.load_books()
+    # file_reader = read.FileReader(source)
+    # all_target_books = file_reader.load_books()
 
     for book_name in all_target_books:
         # 从API请求，得到书名的搜索结果
@@ -46,20 +46,10 @@ def main():
             print("----------------")
 
             # 道德准则，无需多言
-            sleep(random.uniform(0.5, 2))
-
-    with open('result.txt', 'a', encoding="utf-8") as f:
-        for key, value in all_result_books_word_count.items():
-            value: str = value.replace(" ", '').replace("字", '')
-            for index in range(len(units)):
-                if units[index] not in value:
-                    continue
-
-                value = value.replace(units[index], '')
-                value = str(int(float(value) * 10 ** (len(units) - index)))
-                break
-
-            f.write("- name: \"" + key + "\"\n" + "  words: " + value + "\n")
+            sleep(random.uniform(0.5, 2))   
+    
+    # 完成所有搜索，保存文件
+    save.save_results(all_result_books_word_count)
 
 if __name__ == "__main__":
     main()
