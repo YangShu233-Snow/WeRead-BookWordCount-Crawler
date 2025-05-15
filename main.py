@@ -11,13 +11,13 @@ RETRIES = 2
 
 def main():
     base_url = "https://weread.qq.com"
-    source = './Input/'
+    source = './input/'
     all_target_books = ["百年孤独"]
     all_result_books_word_count = {}
 
     # 加载目标书籍配置，获取所有书名
-    file_reader = read.FileReader(source)
-    all_target_books = file_reader.load_books()
+    # file_reader = read.FileReader(source)
+    # all_target_books = file_reader.load_books()
 
     for book_name in all_target_books:
         # 从API请求，得到书名的搜索结果

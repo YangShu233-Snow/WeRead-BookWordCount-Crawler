@@ -1,9 +1,8 @@
 # custom gitignore for WeRead-BookWordCount-Crawler
 cache/*.json
-output/.yml
 *.html
-temp.py
 *.txt
+output/*.yml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
