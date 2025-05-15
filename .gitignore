@@ -2,6 +2,8 @@
 cache/*.json
 output/.yml
 *.html
+temp.py
+*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

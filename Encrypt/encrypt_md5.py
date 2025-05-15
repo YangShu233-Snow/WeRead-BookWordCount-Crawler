@@ -69,7 +69,7 @@ class MD5:
             return ["4", [e]] 
 
 
-    def encrypt_book_id_for_url(self):
+    def encrypt_book_id_for_url(self)->str:
         """
         Replicates the JavaScript encrypt$1 function using the implemented encode16.
         """
