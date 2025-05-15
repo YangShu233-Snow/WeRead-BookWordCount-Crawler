@@ -6,6 +6,9 @@ from SaveFile import save
 import random
 from time import sleep
 
+TIME = 3
+RETRIES = 2
+
 def main():
     base_url = "https://weread.qq.com"
     source = './Input/'
@@ -13,12 +16,24 @@ def main():
     all_result_books_word_count = {}
 
     # 加载目标书籍配置，获取所有书名
-    # file_reader = read.FileReader(source)
-    # all_target_books = file_reader.load_books()
+    file_reader = read.FileReader(source)
+    all_target_books = file_reader.load_books()
 
     for book_name in all_target_books:
         # 从API请求，得到书名的搜索结果
-        book = bookid.BookInfoJSON(base_url, book_name)
+        for retry_count in range(RETRIES):
+            book = bookid.BookInfoJSON.create(base_url, book_name)
+            
+            if book != None:
+                break
+
+            print("main.py retry soon...")
+            delay = 2 * (retry_count + 1)
+            sleep(delay)
+        else:
+            print("Error: skip searching the book \"{}\".".format(book_name))
+            continue
+
         book.get_book_info_json()
         print("{}搜索完毕".format(book_name))
         book_search_result = book.parse_bookid()
@@ -33,11 +48,22 @@ def main():
             print("MD5编码: {} -> {}".format(result_book_id, result_book_encrypt_id))
 
             # 获取对应书本的字数信息
-            result_book_reader = reader.Reader(base_url, result_book_encrypt_id)
+            for retry_count in range(RETRIES):
+                result_book_reader = reader.Reader.create(base_url, result_book_encrypt_id)
+
+                if result_book_reader != None:
+                    break
+
+                print("main.py retry soon...")
+                delay = 2 * (retry_count + 1)
+            else:
+                print("Error: skip getting the book \"{}\".".format(result_book_name))
+                continue
+
             result_book_word_count = result_book_reader.get_book_word_count()
-            
-            if "error" in result_book_word_count:
-                print(result_book_word_count + ": {}".format(result_book_name))
+
+            if result_book_word_count == None:
+                print("Error: skip getting the word count of the book \"{}\".".format(result_book_name))
                 continue
 
             all_result_books_word_count.update({result_book_name: result_book_word_count})
