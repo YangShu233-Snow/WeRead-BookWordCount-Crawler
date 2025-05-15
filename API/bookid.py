@@ -1,6 +1,5 @@
 import requests
 from requests.exceptions import Timeout, ConnectionError, HTTPError, RequestException, JSONDecodeError
-import json
 from typing import Any
 from time import sleep
 
@@ -26,7 +25,7 @@ class BookInfoJSON:
 
         # 初始化Cookies
         if not cookies:
-            cookies = cls.initialize_get_cookies(base_url=base_url, headers=headers)
+            cookies = cls.initialize_get_cookies(cls, base_url=base_url, headers=headers)
             if not cookies:
                 return None
 
