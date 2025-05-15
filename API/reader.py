@@ -40,7 +40,10 @@ class Reader:
         """        
         reader_url = self.reader_url
         results = self.get_reader_page(reader_url, self.headers)
-        word_count = results[0] + " " + results[1]
+        if results != []:
+            word_count = results[0] + " " + results[1]
+        else:
+            word_count = "error: can't find the book"
 
         return word_count
             

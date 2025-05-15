@@ -30,6 +30,8 @@ class BookInfoJSON:
             self.headers = headers
     
     def get_book_info_json(self):
+        """get the book info json from api
+        """        
         query = self.make_query(self.target_book_name)
         search_url = self.base_url + "/api/store/search"
         the_book_info_json = requests.get(url=search_url, headers=self.headers, params=query)
